@@ -31,6 +31,9 @@ typedef UINTN EFI_STATUS;
 typedef void* EFI_HANDLE;
 typedef void* EFI_EVENT;
 
+#define TRUE 1
+#define FALSE 0
+
 typedef struct
 {
     UINT32 data1;
