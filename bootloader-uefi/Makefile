@@ -1,9 +1,8 @@
 CC      := clang
-LD      := lld-link-10
-
-CFLAGS  := -ffreestanding -flto -fno-stack-protector -fshort-wchar -MMD -mno-red-zone -std=c11 \
+CFLAGS  := -ffreestanding -fno-stack-protector -fshort-wchar -MMD -mno-red-zone -std=c11 \
 		   -target x86_64-pc-win32-coff -Wall -Wextra
-LDFLAGS := -subsystem:efi_application -nodefaultlib -dll
+LDFLAGS := -Wl,-subsystem:efi_application -Wl,-entry:efi_main -fuse-ld=lld-link -nostdlib \
+		   -target x86_64-pc-win32-coff
 
 SRC     := $(shell find -name "*.c")
 OBJ     := $(patsubst ./%.c, obj/%.o, $(SRC))
@@ -14,4 +13,4 @@ $(OBJ): obj/%.o : %.c
 
 .PHONY: all
 all: $(OBJ)
-	${LD} ${LDFLAGS} -entry:efi_main -out:obj/BOOTX64.efi ${OBJ}
+	${CC} ${LDFLAGS} -o obj/BOOTX64.efi ${OBJ}

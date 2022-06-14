@@ -3,6 +3,7 @@
 
 #include "types.h"
 #include "protocols/simple_text_input.h"
+#include "protocols/simple_text_output.h"
 
 #define EFI_SYSTEM_TABLE_SIGNATURE 0x5453595320494249
 #define EFI_2_90_SYSTEM_TABLE_REVISION ((2<<16) | (90))
@@ -21,7 +22,7 @@
 #define EFI_SPECIFICATION_VERSION EFI_SYSTEM_TABLE_REVISION
 #define EFI_SYSTEM_TABLE_REVISION EFI_2_90_SYSTEM_TABLE_REVISION
 
-typedef struct
+struct EFI_SYSTEM_TABLE
 {
     EFI_TABLE_HEADER header;
     CHAR16* pFirmwareVendor;
@@ -29,13 +30,13 @@ typedef struct
     EFI_HANDLE consoleInHandle;
     struct EFI_SIMPLE_TEXT_INPUT_PROTOCOL* pConIn;
     EFI_HANDLE consoleOutHandle;
-    void* pConOut;
+    struct EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL* pConOut;
     EFI_HANDLE stdErrorHandle;
-    void* pStdErr;
+    struct EFI_SIMPLE_TEXT_OUTPUT_PROTOCOL* pStdErr;
     void* pRuntimeServices;
     void* pBootServices;
     UINTN numberOfTableEntries;
     void* pConfigurationTable;
-} EFI_SYSTEM_TABLE;
+};
 
 #endif // EFI_SYSTEM_TABLE_H
