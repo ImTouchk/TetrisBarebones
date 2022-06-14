@@ -24,7 +24,7 @@ setup_project()
   mformat -i ${IMAGE_FILE} -f 1440 ::
   mmd -i ${IMAGE_FILE} ::/EFI
   mmd -i ${IMAGE_FILE} ::/EFI/BOOT
-  mcopy -i ${IMAGE_FILE} res/font.ppm
+  mcopy -i ${IMAGE_FILE} res/font.ppm ::
   echo "--------------- First-time setup complete."
 }
 
